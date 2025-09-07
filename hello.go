@@ -42,7 +42,8 @@ func main() {
 	// 	fmt.Printf("%c ", r) // Unicode characters
 	// }
 
-	staticTyping()
+	// constants()
+	computedConstants()
 }
 
 /**
@@ -99,4 +100,45 @@ func staticTyping() {
 
 	// don't edit below this line
 	fmt.Println("Authorization: Basic", username+":"+password)
+}
+
+func sameLineDeclaration() {
+	// You can declare multiple variables on the same line:
+	averageOpenRate, displayMessage := .25, "is the average open rate of your messages"
+	fmt.Println(averageOpenRate, displayMessage)
+
+}
+
+func constants() {
+	// this is how we assign constants
+	const premiumPlanName = "Premium Plan"
+	const basicPlanName = "Basic Plan"
+
+	// we cannot assign the constant with a walrus (`:=`) operator
+	// const walrus := 1
+
+	// don't edit below this line
+
+	fmt.Println("plan:", premiumPlanName)
+	fmt.Println("plan:", basicPlanName)
+}
+
+func computedConstants() {
+	const secondsInMinute = 60
+	const minutesInHour = 60
+	// constants can be computed,
+	// but only if the computation can be done at compile time
+	// so effectively constants can only be computed from other constants
+	const secondsInHour = secondsInMinute * minutesInHour
+
+	// `value`` is subject to change, cannot be computed at compile time
+	// value := 1
+	// const cc = value*1
+
+	// the current time can only be known when the program is running
+	// const currentTime = time.Now()
+
+	// don't edit below this line
+	fmt.Println("number of seconds in an hour:", secondsInHour)
+
 }
