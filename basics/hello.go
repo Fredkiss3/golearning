@@ -43,7 +43,45 @@ func main() {
 	// }
 
 	// constants()
-	computedConstants()
+	// computedConstants()
+	stringFormatting()
+}
+
+func stringFormatting() {
+	// %v means format as the Go-style value
+	s := fmt.Sprintf("I am %v years old", 10)
+	// I am 10 years old
+	fmt.Println(s)
+
+	s = fmt.Sprintf("I am %v years old", "way too many")
+	// I am way too many years old
+	fmt.Println(s)
+
+	// %s means the formatted string expects a string
+	fmt.Printf("hello %s \n", 1)
+	// will print `hello %!s(int=1)` meaning a formatting error happened
+	// `%!s` => bad `%s` usage
+	// `(int=1)` => You passed me an `int` instead of `string`
+
+	// %d for integers
+	fmt.Printf("hello %d \n", 1)
+
+	// %f for floats
+	PI := 3.141592653589793
+	fmt.Printf("hello %f \n", PI)
+	// can pass a number after % for decimals (`%.xf`)
+	// it will round the number to the number of the decimals specified
+	fmt.Printf("hello %.3f \n", PI)
+
+	const name = "Saul Goodman"
+	const openRate = 30.5
+
+	// ?
+	msg := fmt.Sprintf("Hi %s, your open rate is %.1f percent\n", name, openRate)
+
+	// don't edit below this line
+
+	fmt.Print(msg)
 }
 
 /**
