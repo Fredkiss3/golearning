@@ -9,8 +9,9 @@ func ReadInt() {
 	// Prompt the user
 	fmt.Print("Enter an integer: ")
 
+	ptr := &input
 	// Read input from the console
-	_, err := fmt.Scan(&input)
+	_, err := fmt.Scan(ptr)
 
 	if err != nil {
 		panic(err)

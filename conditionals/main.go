@@ -2,7 +2,9 @@ package main
 
 import (
 	"fmt"
+	"io"
 	"math"
+	"os"
 	"runtime"
 	"time"
 )
@@ -104,7 +106,56 @@ func main() {
 	}
 
 	// deferred()
-	Boom()
+	// Boom()
+	// fmt.Println("The deferred return value is:", deferModify())
+
+	f()
+}
+
+func f() {
+	// can define defer block with an anonymous `IIFE`
+	defer func() {
+		// defer only works inside of deferred functions definitions
+		if r := recover(); r != nil {
+			fmt.Println("Recovered in f", r)
+		}
+	}()
+	fmt.Println("Calling g.")
+	g(0)
+	fmt.Println("Returned normally from g.")
+}
+
+func g(i int) {
+	if i > 3 {
+		fmt.Println("Panicking!")
+		panic(fmt.Sprintf("%v", i))
+	}
+	defer fmt.Println("Defer in g", i)
+	fmt.Println("Printing in g", i)
+	g(i + 1)
+}
+
+func deferModify() (i int) {
+	// defer can modify the function return value
+	defer func() { i++ }()
+	return 1
+}
+
+func CopyFile(dstName, srcName string) (written int64, err error) {
+	src, err := os.Open(srcName)
+	if err != nil {
+		return
+	}
+	defer src.Close()
+
+	dst, err := os.Create(dstName)
+	if err != nil {
+		return
+	}
+	// it's better to run defer as close as the declaration to not forget to cleanup
+	defer dst.Close()
+
+	return io.Copy(dst, src)
 }
 
 func deferred() {
